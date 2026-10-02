@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================
+   CORES DO APP  (valores em R G B — é só trocar os números)
+   ========================================================== */
+:root {
+  --cream: 251 247 240;        /* fundo principal (branco quente) */
+  --cream-deep: 244 237 225;   /* fundo de áreas suaves */
+
+  --manto-50: 241 246 252;     /* azul mariano, do mais claro... */
+  --manto-100: 222 233 246;
+  --manto-200: 196 215 238;
+  --manto-300: 160 187 224;
+  --manto-400: 117 152 205;
+  --manto-500: 82 121 182;
+  --manto-600: 62 98 160;      /* cor principal dos botões */
+  --manto-700: 48 77 130;
+  --manto-800: 37 60 103;
+  --manto-900: 27 44 78;       /* ...ao mais escuro */
+
+  --ouro-300: 226 205 150;     /* dourado discreto */
+  --ouro-500: 184 152 90;
+  --ouro-600: 154 124 66;
+
+  --rosa-100: 249 232 229;     /* rosa suave */
+  --rosa-200: 240 208 203;
+  --rosa-500: 196 130 128;
+
+  --tinta: 43 52 74;           /* cor do texto */
+  --tinta-soft: 94 104 126;    /* texto secundário */
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-cream font-sans text-[17px] leading-relaxed text-tinta antialiased;
+    background-image:
+      radial-gradient(34rem 26rem at 105% 6%, rgb(var(--manto-200) / 0.55), transparent 70%),
+      radial-gradient(30rem 24rem at -10% 42%, rgb(var(--manto-100) / 0.9), transparent 70%),
+      radial-gradient(34rem 26rem at 105% 78%, rgb(var(--manto-200) / 0.5), transparent 70%),
+      linear-gradient(180deg, rgb(var(--manto-50)) 0%, rgb(var(--cream)) 38%, rgb(var(--manto-50)) 100%);
+    background-attachment: fixed;
+  }
+  /* Estrelinhas douradas e azuis, bem sutis, ao fundo de tudo */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.55;
+    background-image:
+      radial-gradient(1.5px 1.5px at 12% 18%, rgb(var(--ouro-500)) 99%, transparent),
+      radial-gradient(1.5px 1.5px at 84% 12%, rgb(var(--manto-400)) 99%, transparent),
+      radial-gradient(1.5px 1.5px at 70% 46%, rgb(var(--ouro-300)) 99%, transparent),
+      radial-gradient(1.5px 1.5px at 8% 64%, rgb(var(--manto-300)) 99%, transparent),
+      radial-gradient(1.5px 1.5px at 90% 82%, rgb(var(--ouro-500)) 99%, transparent),
+      radial-gradient(1.5px 1.5px at 30% 92%, rgb(var(--manto-400)) 99%, transparent);
+  }
+  h1, h2, h3 {
+    @apply font-serif;
+  }
+  button, a, input {
+    @apply outline-none;
+  }
+  :focus-visible {
+    @apply ring-2 ring-manto-500 ring-offset-2 ring-offset-cream;
+    border-radius: 12px;
+  }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-manto-600 px-6 font-semibold text-white shadow-soft transition hover:bg-manto-700 active:scale-[0.98];
+  }
+  .btn-soft {
+    @apply inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full border border-manto-200 bg-white px-6 font-semibold text-manto-700 transition hover:bg-manto-50 active:scale-[0.98];
+  }
+  .pill {
+    @apply inline-flex min-h-[44px] items-center gap-2 rounded-full border border-manto-200/80 bg-white px-4 text-[15px] font-semibold text-manto-700 transition hover:bg-manto-50 active:scale-[0.97] disabled:opacity-50;
+  }
+  .divider {
+    @apply flex items-center gap-3 text-ouro-500;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    @apply h-px w-10 bg-gradient-to-r from-transparent to-ouro-300;
+  }
+  .divider::after { @apply bg-gradient-to-l; }
+  .card-blue {
+    @apply border border-manto-200/70 bg-gradient-to-b from-white to-manto-50/80 shadow-soft;
+  }
+  .section-label {
+    @apply text-[13px] font-bold uppercase tracking-[0.18em] text-ouro-600;
+  }
+}
+
+/* Barra de progresso do player */
+.range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+  cursor: pointer;
+  --p: 0%;
+}
+.range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, rgb(var(--manto-600)) var(--p), rgb(var(--manto-100)) var(--p));
+}
+.range::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: rgb(var(--manto-100));
+}
+.range::-moz-range-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: rgb(var(--manto-600));
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid rgb(var(--manto-600));
+  box-shadow: 0 2px 6px rgb(27 44 78 / 0.25);
+}
+.range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid rgb(var(--manto-600));
+}
+
+/* Rolagem sem barra feia nos chips */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
