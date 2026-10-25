@@ -5,7 +5,7 @@ import { Link } from './Link'
 
 export function AppHeader({ showBack }: { showBack?: boolean }) {
   return (
-    <header className="sticky top-0 z-30 bg-gradient-to-b from-cream to-manto-50/95 pt-[env(safe-area-inset-top)] shadow-[0_8px_20px_-14px_rgb(48_77_130_/_0.45)] backdrop-blur-md">
+    <header className="relative z-30 bg-gradient-to-b from-cream to-manto-50/95 pt-[env(safe-area-inset-top)] shadow-[0_8px_20px_-14px_rgb(48_77_130_/_0.45)] backdrop-blur-md">
       {/* fio dourado no topo */}
       <div className="h-[3px] bg-gradient-to-r from-ouro-300/0 via-ouro-500 to-ouro-300/0" aria-hidden="true" />
 

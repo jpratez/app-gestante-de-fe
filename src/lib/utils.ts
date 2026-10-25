@@ -26,3 +26,10 @@ export function formatTime(seconds: number) {
 }
 
 export const pad = (n: number) => n.toString().padStart(2, '0')
+
+/** "Maria, Cuida do Meu Bebê" -> "maria-cuida-do-meu-bebe" */
+export function slugify(text: string) {
+  return normalize(text)
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}

@@ -1,4 +1,14 @@
 import type { Prayer } from '../types'
+import { bebe } from './oracoes/bebe'
+import { casal } from './oracoes/casal'
+import { dia } from './oracoes/dia'
+import { familia } from './oracoes/familia'
+import { gratidao } from './oracoes/gratidao'
+import { mae } from './oracoes/mae'
+import { maria } from './oracoes/maria'
+import { medo } from './oracoes/medo'
+import { nascimento } from './oracoes/nascimento'
+import { ultrassom } from './oracoes/ultrassom'
 
 /**
  * TODAS AS ORAÇÕES DO APP
@@ -592,4 +602,16 @@ Que eu diga com o teu coração:
 "Faça-se em mim, Senhor."
 `,
   },
+
+  /* ───────────── MAIS ORAÇÕES (uma pasta por categoria: src/data/oracoes/) ───────────── */
+  ...bebe,
+  ...medo,
+  ...ultrassom,
+  ...dia,
+  ...maria,
+  ...mae,
+  ...familia,
+  ...gratidao,
+  ...nascimento,
+  ...casal,
 ]
