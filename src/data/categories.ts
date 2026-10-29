@@ -4,6 +4,7 @@ import type { Category } from '../types'
  * CATEGORIAS DO APP
  * Para mudar nome, descrição ou imagem de uma categoria, edite aqui.
  * "total" é a quantidade prevista de orações (aparece no card).
+ * "liberada: true" abre a categoria. Sem isso, o card fica com cadeado e aviso "em breve".
  */
 export const categories: Category[] = [
   {
@@ -12,6 +13,7 @@ export const categories: Category[] = [
     description: 'Para colocar a vida, a saúde e o futuro do seu bebê nas mãos de Deus.',
     image: '/images/categorias/bebe.webp',
     total: 34,
+    liberada: true,
     tone: ['#F8E6E2', '#EBCBC6'],
   },
   {

@@ -1,5 +1,6 @@
 import { AppHeader } from './components/AppHeader'
 import { BottomNavigation } from './components/BottomNavigation'
+import { ComingSoonModal } from './components/ComingSoonModal'
 import { Footer } from './components/Footer'
 import { FullPlayer } from './components/FullPlayer'
 import { LyricsModal } from './components/LyricsModal'
@@ -40,6 +41,7 @@ function Shell() {
 
       <FullPlayer />
       <LyricsModal />
+      <ComingSoonModal />
       <Toast />
     </>
   )

@@ -11,6 +11,8 @@ export const prayersByCategory = (categoryId: string): Prayer[] =>
   prayers.filter((p) => p.categoryId === categoryId)
 
 /** Quantidade mostrada no card: a prevista ou a real, a que for maior. */
+export const isLiberada = (categoryId: string) => !!categoryById(categoryId)?.liberada
+
 export const categoryCount = (category: Category) =>
   Math.max(category.total, prayersByCategory(category.id).length)
 
@@ -22,6 +24,7 @@ export function searchPrayers(query: string): Prayer[] {
   if (!terms.length) return []
 
   return prayers
+    .filter((prayer) => isLiberada(prayer.categoryId))
     .map((prayer) => {
       const category = categoryById(prayer.categoryId)
       const title = normalize(prayer.title)

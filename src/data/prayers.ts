@@ -1,5 +1,6 @@
 import type { Prayer } from '../types'
 import { bebe } from './oracoes/bebe'
+import { bebeComAudio } from './oracoes/bebe-audio'
 import { casal } from './oracoes/casal'
 import { dia } from './oracoes/dia'
 import { familia } from './oracoes/familia'
@@ -20,186 +21,19 @@ import { ultrassom } from './oracoes/ultrassom'
  *   oracoes-bebe | quando-o-medo-aparecer | consultas-exames-ultrassons | da-manha-a-noite
  *   sob-o-manto | coracao-da-mae | oracoes-familia | oracoes-gratidao | preparacao-nascimento | oracoes-casal
  *
+ * Só as 10 primeiras de "Orações pelo desenvolvimento e crescimento do seu bebê" têm áudio por enquanto.
+ * Para liberar o áudio de uma oração: acrescente audio: "/audio/<id>.mp3" (ou use comAudio) e suba o MP3 em public/audio/.
  * Os textos abaixo são letras de exemplo para testar o app — substitua pelas suas.
  */
 export const prayers: Prayer[] = [
-  /* ───────────── ORAÇÕES PELO SEU BEBÊ ───────────── */
-  {
-    id: 'maria-cuida-do-meu-bebe',
-    title: 'Maria, Cuida do Meu Bebê',
-    categoryId: 'oracoes-bebe',
-    duration: '4:12',
-    audio: '/audio/maria-cuida-do-meu-bebe.mp3',
-    cover: '/images/musicas/maria-cuida-do-meu-bebe.jpg',
-    tags: ['bebê', 'proteção', 'filho'],
-    lyrics: `
-[Verso]
-Maria, Mãe de Jesus, eu venho a ti,
-com as mãos sobre o meu ventre, a pedir:
-cuida de quem ainda não vi,
-cuida do bebê que Deus confiou a mim.
+  /* ───────────── ORAÇÕES PELO DESENVOLVIMENTO E CRESCIMENTO DO SEU BEBÊ (10 com áudio) ───────────── */
+  ...bebeComAudio,
 
-[Refrão]
-Maria, cuida do meu bebê,
-guarda o seu sono, guarda o seu coração.
-Cobre o meu filho com o teu manto,
-leva-o seguro na tua mão.
-
-[Verso]
-Quando eu não puder estar perto,
-quando eu não souber o que fazer,
-fica tu, Mãe, no meu lugar
-e ensina-me a confiar e a esperar.
-
-[Refrão]
-Maria, cuida do meu bebê,
-guarda o seu sono, guarda o seu coração.
-Cobre o meu filho com o teu manto,
-leva-o seguro na tua mão.
-`,
-  },
-  {
-    id: 'oracao-pela-vida-do-meu-bebe',
-    title: 'Oração pela Vida do Meu Bebê',
-    categoryId: 'oracoes-bebe',
-    duration: '3:48',
-    audio: '/audio/oracao-pela-vida-do-meu-bebe.mp3',
-    cover: '/images/musicas/oracao-pela-vida-do-meu-bebe.jpg',
-    tags: ['vida', 'gratidão', 'bebê'],
-    lyrics: `
-[Verso]
-Senhor, Tu és o autor da vida,
-Tu formaste o meu bebê em segredo.
-Antes que eu soubesse o seu nome,
-já o conhecias, já o amavas.
-
-[Refrão]
-Guarda esta vida, Senhor,
-que cresce em mim, que vem de Ti.
-Seja cada dia um dom,
-seja cada batida uma prece.
-
-[Verso]
-Que o meu coração diga "sim"
-como o de Maria disse um dia.
-Faça-se em mim segundo a Tua palavra,
-e em meu filho, a Tua vontade.
-
-[Refrão]
-Guarda esta vida, Senhor,
-que cresce em mim, que vem de Ti.
-Seja cada dia um dom,
-seja cada batida uma prece.
-`,
-  },
-  {
-    id: 'oracao-pela-saude-do-meu-bebe',
-    title: 'Oração pela Saúde do Meu Bebê',
-    categoryId: 'oracoes-bebe',
-    duration: '3:55',
-    audio: '/audio/oracao-pela-saude-do-meu-bebe.mp3',
-    cover: '/images/musicas/oracao-pela-saude-do-meu-bebe.jpg',
-    tags: ['saúde', 'cura', 'bebê'],
-    lyrics: `
-[Verso]
-Jesus, médico das almas e dos corpos,
-toca o meu bebê com a Tua paz.
-Que cada pequeno órgão se forme bem,
-que cada pequena mão cresça em Teu amor.
-
-[Refrão]
-Dá saúde ao meu bebê, Senhor,
-sê a sua força, sê o seu abrigo.
-Eu confio, eu entrego, eu descanso:
-ele está nas Tuas mãos.
-
-[Ponte]
-Se vier o medo, lembra-me de Ti.
-Se vier a dúvida, fica comigo.
-
-[Refrão]
-Dá saúde ao meu bebê, Senhor,
-sê a sua força, sê o seu abrigo.
-Eu confio, eu entrego, eu descanso:
-ele está nas Tuas mãos.
-`,
-  },
-  {
-    id: 'oracao-pelo-desenvolvimento-do-meu-bebe',
-    title: 'Oração pelo Desenvolvimento do Meu Bebê',
-    categoryId: 'oracoes-bebe',
-    duration: '4:05',
-    audio: '/audio/oracao-pelo-desenvolvimento-do-meu-bebe.mp3',
-    cover: '/images/musicas/oracao-pelo-desenvolvimento-do-meu-bebe.jpg',
-    tags: ['crescimento', 'semanas', 'bebê'],
-    lyrics: `
-[Verso]
-Semana após semana, Senhor,
-Tu vais tecendo o meu bebê.
-Cada dia um pouco maior,
-cada dia um pouco mais Teu.
-
-[Refrão]
-Faz crescer, faz crescer,
-com ternura e com paz.
-Que o meu filho se desenvolva
-sob o Teu olhar de amor.
-
-[Verso]
-Abençoa o que eu não vejo,
-o que acontece em silêncio.
-Tudo o que Tu começaste
-Tu mesmo vais completar.
-
-[Refrão]
-Faz crescer, faz crescer,
-com ternura e com paz.
-Que o meu filho se desenvolva
-sob o Teu olhar de amor.
-`,
-  },
-  {
-    id: 'oracao-pelo-coracao-do-meu-bebe',
-    title: 'Oração pelo Coração do Meu Bebê',
-    categoryId: 'oracoes-bebe',
-    duration: '3:40',
-    audio: '/audio/oracao-pelo-coracao-do-meu-bebe.mp3',
-    cover: '/images/musicas/oracao-pelo-coracao-do-meu-bebe.jpg',
-    tags: ['coração', 'batimentos', 'bebê'],
-    lyrics: `
-[Verso]
-Um pequeno coração já bate em mim,
-um compasso suave, um sim de Deus.
-Cada batida é uma resposta
-ao amor que o criou.
-
-[Refrão]
-Protege este coração, Senhor,
-que ele bata forte e em paz.
-Que aprenda a amar como Tu amas
-e a confiar como Maria confiou.
-
-[Verso]
-Quando eu ouvir o seu ritmo,
-que eu lembre de agradecer.
-Dois corações num só corpo,
-os dois guardados em Ti.
-
-[Refrão]
-Protege este coração, Senhor,
-que ele bata forte e em paz.
-Que aprenda a amar como Tu amas
-e a confiar como Maria confiou.
-`,
-  },
-
-  /* ───────────── QUANDO O MEDO APARECER ───────────── */
   {
     id: 'quando-eu-estiver-com-medo',
     title: 'Quando Eu Estiver com Medo',
     categoryId: 'quando-o-medo-aparecer',
     duration: '4:02',
-    audio: '/audio/quando-eu-estiver-com-medo.mp3',
     cover: '/images/musicas/quando-eu-estiver-com-medo.jpg',
     tags: ['medo', 'insegurança', 'paz'],
     lyrics: `
@@ -233,7 +67,6 @@ tudo o que te faz tremer.
     title: 'Quando Minha Cabeça Não Conseguir Parar',
     categoryId: 'quando-o-medo-aparecer',
     duration: '3:58',
-    audio: '/audio/quando-minha-cabeca-nao-conseguir-parar.mp3',
     cover: '/images/musicas/quando-minha-cabeca-nao-conseguir-parar.jpg',
     tags: ['dormir', 'pensamentos', 'noite', 'insônia'],
     lyrics: `
@@ -267,7 +100,6 @@ em Ti posso dormir em paz.
     title: 'Quando Eu Estiver Ansiosa',
     categoryId: 'quando-o-medo-aparecer',
     duration: '3:44',
-    audio: '/audio/quando-eu-estiver-ansiosa.mp3',
     cover: '/images/musicas/quando-eu-estiver-ansiosa.jpg',
     tags: ['ansiedade', 'preocupação', 'calma'],
     lyrics: `
@@ -299,7 +131,6 @@ dá-me a paz de quem Te espera.
     title: 'Quando Eu Tiver Medo do Futuro',
     categoryId: 'quando-o-medo-aparecer',
     duration: '4:10',
-    audio: '/audio/quando-eu-tiver-medo-do-futuro.mp3',
     cover: '/images/musicas/quando-eu-tiver-medo-do-futuro.jpg',
     tags: ['futuro', 'medo', 'confiança'],
     lyrics: `
@@ -335,7 +166,6 @@ tudo repousa em Tuas mãos.
     title: 'Antes do Meu Ultrassom',
     categoryId: 'consultas-exames-ultrassons',
     duration: '3:36',
-    audio: '/audio/antes-do-meu-ultrassom.mp3',
     cover: '/images/musicas/antes-do-meu-ultrassom.jpg',
     tags: ['ultrassom', 'exame', 'imagem'],
     lyrics: `
@@ -369,7 +199,6 @@ fica comigo, Senhor.
     title: 'Antes da Consulta',
     categoryId: 'consultas-exames-ultrassons',
     duration: '3:20',
-    audio: '/audio/antes-da-consulta.mp3',
     cover: '/images/musicas/antes-da-consulta.jpg',
     tags: ['consulta', 'pré-natal', 'médico'],
     lyrics: `
@@ -403,7 +232,6 @@ sê Tu o cuidado em cada decisão.
     title: 'No Caminho para o Médico',
     categoryId: 'consultas-exames-ultrassons',
     duration: '3:15',
-    audio: '/audio/no-caminho-para-o-medico.mp3',
     cover: '/images/musicas/no-caminho-para-o-medico.jpg',
     tags: ['caminho', 'médico', 'trânsito', 'espera'],
     lyrics: `
@@ -437,7 +265,6 @@ e traz de volta a confiança.
     title: 'Enquanto Espero o Resultado',
     categoryId: 'consultas-exames-ultrassons',
     duration: '3:50',
-    audio: '/audio/enquanto-espero-o-resultado.mp3',
     cover: '/images/musicas/enquanto-espero-o-resultado.jpg',
     tags: ['resultado', 'espera', 'exame', 'ansiedade'],
     lyrics: `
@@ -471,7 +298,6 @@ e as Tuas mãos são boas.
     title: 'Sob o Teu Manto, Maria',
     categoryId: 'sob-o-manto',
     duration: '4:20',
-    audio: '/audio/sob-o-teu-manto-maria.mp3',
     cover: '/images/musicas/sob-o-teu-manto-maria.jpg',
     tags: ['manto', 'Maria', 'proteção', 'Nossa Senhora'],
     lyrics: `
@@ -505,7 +331,6 @@ leva-nos sempre a Jesus.
     title: 'Maria, Fica Comigo',
     categoryId: 'sob-o-manto',
     duration: '3:52',
-    audio: '/audio/maria-fica-comigo.mp3',
     cover: '/images/musicas/maria-fica-comigo.jpg',
     tags: ['Maria', 'companhia', 'solidão'],
     lyrics: `
@@ -539,7 +364,6 @@ como ficaste em Nazaré.
     title: 'Nossa Senhora, Intercede pelo Meu Bebê',
     categoryId: 'sob-o-manto',
     duration: '4:08',
-    audio: '/audio/nossa-senhora-intercede-pelo-meu-bebe.mp3',
     cover: '/images/musicas/nossa-senhora-intercede-pelo-meu-bebe.jpg',
     tags: ['intercessão', 'Nossa Senhora', 'bebê'],
     lyrics: `
@@ -573,7 +397,6 @@ que Ele o chame pelo nome.
     title: 'Maria, Ensina-me a Confiar',
     categoryId: 'sob-o-manto',
     duration: '4:00',
-    audio: '/audio/maria-ensina-me-a-confiar.mp3',
     cover: '/images/musicas/maria-ensina-me-a-confiar.jpg',
     tags: ['confiança', 'entrega', 'Maria'],
     lyrics: `

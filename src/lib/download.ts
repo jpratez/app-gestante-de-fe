@@ -6,6 +6,7 @@ import type { Prayer } from '../types'
  * Retorna false se o áudio ainda não estiver disponível.
  */
 export async function downloadPrayer(prayer: Prayer): Promise<boolean> {
+  if (!prayer.audio) return false
   try {
     const res = await fetch(prayer.audio, { method: 'HEAD' })
     const type = res.headers.get('content-type') ?? ''

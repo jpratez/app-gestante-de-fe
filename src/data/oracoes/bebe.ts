@@ -4,7 +4,7 @@ const o = (t: string, d: string, v1: string, r: string, v2: string) =>
   oracao('oracoes-bebe', t, d, v1, r, v2)
 
 /** Orações pelo desenvolvimento e crescimento do seu bebê */
-export const bebe = [
+const todas = [
   o('Bênçãos sobre o Meu Bebê', '3:45',
     'Senhor, estendo as mãos sobre o meu ventre|e peço a Tua bênção sobre quem ainda não vi.|Que cada dia seja uma graça nova,|que cada noite seja guardada por Ti.',
     'Abençoa o meu bebê, Senhor,|abençoa o sorriso que há de vir.|Que ele cresça sob o Teu olhar|e viva sempre em Tua paz.',
@@ -86,3 +86,6 @@ export const bebe = [
     'Obrigada, Senhor, por este filho,|por esta vida que cresce em mim.|Obrigada pelo amor que já sinto|antes mesmo de o ver sorrir.',
     'Que eu seja digna do que me confias,|que eu seja mãe segundo o Teu coração.|E que o meu "obrigada" de hoje|seja o meu cântico de sempre.'),
 ]
+
+/** Ainda sem áudio: o play mostra o aviso "em breve". As 10 com áudio estão em bebe-audio.ts. */
+export const bebe = todas.slice(5)

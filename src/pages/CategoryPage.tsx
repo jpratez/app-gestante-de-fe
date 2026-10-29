@@ -1,13 +1,25 @@
 import { Play } from 'lucide-react'
+import { useEffect } from 'react'
 import { Link } from '../components/Link'
 import { PrayerList } from '../components/PrayerList'
 import { CoverPlaceholder, SmartImage } from '../components/SmartImage'
 import { usePlayer } from '../hooks/useAudioPlayer'
 import { categoryById, categoryCount, prayersByCategory } from '../lib/catalog'
+import { navigate } from '../lib/router'
 
 export function CategoryPage({ id }: { id: string }) {
-  const { playPrayer } = usePlayer()
+  const { playPrayer, openComingSoon } = usePlayer()
   const category = categoryById(id)
+  const locked = !!category && !category.liberada
+
+  // Categoria ainda não liberada (link direto): volta e mostra o aviso
+  useEffect(() => {
+    if (!locked) return
+    navigate('/categorias', { replace: true })
+    openComingSoon()
+  }, [locked, openComingSoon])
+
+  if (locked) return null
 
   if (!category) {
     return (

@@ -13,8 +13,6 @@ import { createStore, useStore } from '../lib/storage'
 import { parseDuration } from '../lib/utils'
 import type { LastPlayed, Prayer } from '../types'
 
-const UNAVAILABLE = 'Esta oração estará disponível em breve.'
-
 /** Última oração ouvida + posição (só neste aparelho). */
 const lastStore = createStore<LastPlayed | null>('smm:last', null)
 export const useLastPlayed = () => useStore(lastStore)
@@ -40,6 +38,10 @@ interface PlayerContextValue {
   closeLyrics: () => void
   toast: string | null
   notify: (message: string) => void
+  /** Pop-up bonito: "essas músicas estão sendo adicionadas". */
+  comingSoon: boolean
+  openComingSoon: () => void
+  closeComingSoon: () => void
 }
 
 const PlayerContext = createContext<PlayerContextValue | null>(null)
@@ -71,6 +73,9 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   const [fullOpen, setFullOpen] = useState(false)
   const [lyricsPrayer, setLyricsPrayer] = useState<Prayer | null>(null)
   const [toast, setToast] = useState<string | null>(null)
+  const [comingSoon, setComingSoon] = useState(false)
+  const openComingSoon = useCallback(() => setComingSoon(true), [])
+  const closeComingSoon = useCallback(() => setComingSoon(false), [])
 
   const currentRef = useRef<Prayer | null>(null)
   const queueRef = useRef<Prayer[]>([])
@@ -86,6 +91,10 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
 
   const start = useCallback(
     (prayer: Prayer, nextQueue: Prayer[], startAt = 0) => {
+      if (!prayer.audio) {
+        openComingSoon()
+        return
+      }
       currentRef.current = prayer
       queueRef.current = nextQueue
       setCurrent(prayer)
@@ -100,7 +109,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       })
       lastStore.set({ id: prayer.id, time: startAt })
     },
-    [audio],
+    [audio, openComingSoon],
   )
 
   const toggle = useCallback(() => {
@@ -164,14 +173,16 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   const next = useCallback(() => {
     const q = queueRef.current
     const idx = q.findIndex((p) => p.id === currentRef.current?.id)
-    if (idx >= 0 && idx < q.length - 1) start(q[idx + 1], q)
+    const following = idx >= 0 ? q.slice(idx + 1).find((p) => p.audio) : undefined
+    if (following) start(following, q)
   }, [start])
 
   const previous = useCallback(() => {
     const q = queueRef.current
     const idx = q.findIndex((p) => p.id === currentRef.current?.id)
-    if (audio.currentTime > 3 || idx <= 0) seek(0)
-    else start(q[idx - 1], q)
+    const before = idx > 0 ? [...q.slice(0, idx)].reverse().find((p) => p.audio) : undefined
+    if (audio.currentTime > 3 || !before) seek(0)
+    else start(before, q)
   }, [audio, seek, start])
 
   /* Eventos do <audio> */
@@ -207,8 +218,9 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     const onEnded = () => {
       const q = queueRef.current
       const idx = q.findIndex((p) => p.id === currentRef.current?.id)
-      if (idx >= 0 && idx < q.length - 1) {
-        start(q[idx + 1], q)
+      const following = idx >= 0 ? q.slice(idx + 1).find((p) => p.audio) : undefined
+      if (following) {
+        start(following, q)
       } else {
         setPlaying(false)
         if (currentRef.current) lastStore.set({ id: currentRef.current.id, time: 0 })
@@ -217,7 +229,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     const onError = () => {
       setLoading(false)
       setPlaying(false)
-      if (audio.getAttribute('src')) notify(UNAVAILABLE)
+      if (audio.getAttribute('src')) openComingSoon()
     }
 
     const events: [string, () => void][] = [
@@ -233,7 +245,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     ]
     events.forEach(([name, fn]) => audio.addEventListener(name, fn))
     return () => events.forEach(([name, fn]) => audio.removeEventListener(name, fn))
-  }, [audio, start, notify])
+  }, [audio, start, openComingSoon])
 
   /* Controles na tela de bloqueio do celular */
   useEffect(() => {
@@ -263,11 +275,11 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
 
   /* Trava a rolagem do fundo quando há uma tela cheia aberta */
   useEffect(() => {
-    document.body.style.overflow = fullOpen || lyricsPrayer ? 'hidden' : ''
+    document.body.style.overflow = fullOpen || lyricsPrayer || comingSoon ? 'hidden' : ''
     return () => {
       document.body.style.overflow = ''
     }
-  }, [fullOpen, lyricsPrayer])
+  }, [fullOpen, lyricsPrayer, comingSoon])
 
   const value = useMemo<PlayerContextValue>(
     () => ({
@@ -289,8 +301,11 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       closeLyrics: () => setLyricsPrayer(null),
       toast,
       notify,
+      comingSoon,
+      openComingSoon,
+      closeComingSoon,
     }),
-    [current, queue, playing, loading, playPrayer, toggle, next, previous, seek, closePlayer, skip, fullOpen, lyricsPrayer, toast, notify],
+    [current, queue, playing, loading, playPrayer, toggle, next, previous, seek, closePlayer, skip, fullOpen, lyricsPrayer, toast, notify, comingSoon, openComingSoon, closeComingSoon],
   )
 
   const timeValue = useMemo(() => ({ time, duration }), [time, duration])

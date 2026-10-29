@@ -11,14 +11,14 @@ interface Props {
 }
 
 export function DownloadButton({ prayer, label = 'Baixar', className = 'pill' }: Props) {
-  const { notify } = usePlayer()
+  const { openComingSoon } = usePlayer()
   const [busy, setBusy] = useState(false)
 
   const handle = async () => {
     setBusy(true)
     const ok = await downloadPrayer(prayer)
     setBusy(false)
-    if (!ok) notify('Esta oração estará disponível em breve.')
+    if (!ok) openComingSoon()
   }
 
   return (

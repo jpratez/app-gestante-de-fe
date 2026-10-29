@@ -5,6 +5,8 @@ export interface Category {
   image: string
   /** Capa limpa (sem texto) usada no player e nas capas das orações. Se faltar, usa "image". */
   cover?: string
+  /** Só as categorias "liberadas" abrem. As demais mostram cadeado e o aviso "em breve". */
+  liberada?: boolean
   /** Quantidade prevista de orações (usada no card enquanto a lista não está completa). */
   total: number
   /** Cores do placeholder elegante quando a imagem ainda não existe. */
@@ -17,8 +19,12 @@ export interface Prayer {
   categoryId: string
   /** Formato "4:12" */
   duration: string
-  /** Caminho do MP3, ex.: /audio/maria-cuida-do-meu-bebe.mp3 */
-  audio: string
+  /**
+   * Caminho do MP3, ex.: /audio/maria-cuida-do-meu-bebe.mp3
+   * Sem este campo, a oração aparece na lista mas o play mostra o aviso
+   * "estão sendo adicionadas". Quando o MP3 estiver pronto, acrescente a linha.
+   */
+  audio?: string
   /** Capa da oração (opcional). Se não existir, usa a imagem da categoria. */
   cover?: string
   /** Letra. Use [Verso], [Refrão], [Ponte] em linhas separadas. */
