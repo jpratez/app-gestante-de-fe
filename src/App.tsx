@@ -6,6 +6,7 @@ import { FullPlayer } from './components/FullPlayer'
 import { LyricsModal } from './components/LyricsModal'
 import { MiniPlayer } from './components/MiniPlayer'
 import { Toast } from './components/Toast'
+import { WelcomeNotice } from './components/WelcomeNotice'
 import { PlayerProvider, usePlayer } from './hooks/useAudioPlayer'
 import { useRoute } from './lib/router'
 import { CategoriesPage } from './pages/CategoriesPage'
@@ -43,6 +44,7 @@ function Shell() {
       <LyricsModal />
       <ComingSoonModal />
       <Toast />
+      <WelcomeNotice />
     </>
   )
 }
