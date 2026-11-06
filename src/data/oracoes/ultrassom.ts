@@ -5,10 +5,6 @@ const o = (t: string, d: string, v1: string, r: string, v2: string) =>
 
 /** Orações para consultas, exames e ultrassons */
 export const ultrassom = [
-  o('Na Sala de Espera', '3:25',
-    'Sento e espero, folheio o tempo,|o coração ora entre uma página e outra.|Senhor, esta espera também é Tua,|e nela eu escolho a paz.',
-    'Enquanto espero, eu rezo,|enquanto rezo, eu confio.|Cada minuto é entrega,|cada respiração é um sim.',
-    'Abençoa quem espera comigo,|cada mãe, cada pai, cada avó.|Que todos saiam em paz,|levando boas notícias no coração.'),
   o('Durante o Ultrassom', '3:55',
     'A tela se acende, o coração aperta,|e eu busco o rostinho entre as sombras.|Senhor, que eu veja com os olhos da fé|a vida que Tu formaste.',
     'Mostra-me, Senhor, o meu bebê,|e dá-me gratidão por cada traço.|Seja o que for que eu veja,|eu estou em Tuas mãos.',

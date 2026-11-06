@@ -18,7 +18,7 @@ export function DownloadButton({ prayer, label = 'Baixar', className = 'pill' }:
     setBusy(true)
     const ok = await downloadPrayer(prayer)
     setBusy(false)
-    if (!ok) openComingSoon()
+    if (!ok) openComingSoon('musica')
   }
 
   return (

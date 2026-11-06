@@ -68,7 +68,7 @@ export function CategoryCard({ category, index = 0 }: { category: Category; inde
     return (
       <button
         type="button"
-        onClick={openComingSoon}
+        onClick={() => openComingSoon()}
         aria-label={`${category.title}, em breve`}
         style={style}
         className={cls}

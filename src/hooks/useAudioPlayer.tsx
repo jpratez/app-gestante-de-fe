@@ -40,7 +40,9 @@ interface PlayerContextValue {
   notify: (message: string) => void
   /** Pop-up bonito: "essas músicas estão sendo adicionadas". */
   comingSoon: boolean
-  openComingSoon: () => void
+  /** 'musica' = uma oração sem áudio; 'categoria' = coleção bloqueada. */
+  comingSoonKind: 'musica' | 'categoria'
+  openComingSoon: (kind?: 'musica' | 'categoria') => void
   closeComingSoon: () => void
 }
 
@@ -74,7 +76,11 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   const [lyricsPrayer, setLyricsPrayer] = useState<Prayer | null>(null)
   const [toast, setToast] = useState<string | null>(null)
   const [comingSoon, setComingSoon] = useState(false)
-  const openComingSoon = useCallback(() => setComingSoon(true), [])
+  const [comingSoonKind, setComingSoonKind] = useState<'musica' | 'categoria'>('categoria')
+  const openComingSoon = useCallback((kind: 'musica' | 'categoria' = 'categoria') => {
+    setComingSoonKind(kind)
+    setComingSoon(true)
+  }, [])
   const closeComingSoon = useCallback(() => setComingSoon(false), [])
 
   const currentRef = useRef<Prayer | null>(null)
@@ -92,7 +98,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   const start = useCallback(
     (prayer: Prayer, nextQueue: Prayer[], startAt = 0) => {
       if (!prayer.audio) {
-        openComingSoon()
+        openComingSoon('musica')
         return
       }
       currentRef.current = prayer
@@ -229,7 +235,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     const onError = () => {
       setLoading(false)
       setPlaying(false)
-      if (audio.getAttribute('src')) openComingSoon()
+      if (audio.getAttribute('src')) openComingSoon('musica')
     }
 
     const events: [string, () => void][] = [
@@ -302,10 +308,11 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       toast,
       notify,
       comingSoon,
+      comingSoonKind,
       openComingSoon,
       closeComingSoon,
     }),
-    [current, queue, playing, loading, playPrayer, toggle, next, previous, seek, closePlayer, skip, fullOpen, lyricsPrayer, toast, notify, comingSoon, openComingSoon, closeComingSoon],
+    [current, queue, playing, loading, playPrayer, toggle, next, previous, seek, closePlayer, skip, fullOpen, lyricsPrayer, toast, notify, comingSoon, comingSoonKind, openComingSoon, closeComingSoon],
   )
 
   const timeValue = useMemo(() => ({ time, duration }), [time, duration])

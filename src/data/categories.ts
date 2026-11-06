@@ -22,6 +22,7 @@ export const categories: Category[] = [
     description: 'Orações para os momentos de preocupação, insegurança e ansiedade.',
     image: '/images/categorias/medo.webp',
     total: 33,
+    liberada: true,
     tone: ['#E3ECF7', '#BFD2EC'],
   },
   {
@@ -30,6 +31,7 @@ export const categories: Category[] = [
     description: 'Para rezar antes, durante e depois dos momentos importantes do pré-natal.',
     image: '/images/categorias/ultrassom.webp',
     total: 32,
+    liberada: true,
     tone: ['#E8F1F8', '#C6DBEC'],
   },
   {

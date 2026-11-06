@@ -1,4 +1,4 @@
-import { FileText, Loader2, Pause, Play } from 'lucide-react'
+import { FileText, Loader2, Lock, Pause, Play } from 'lucide-react'
 import { usePlayer } from '../hooks/useAudioPlayer'
 import { categoryById } from '../lib/catalog'
 import { cn, pad } from '../lib/utils'
@@ -15,10 +15,37 @@ interface Props {
 }
 
 export function PrayerListItem({ prayer, index, queue, showCategory }: Props) {
-  const { current, playing, loading, playPrayer, openLyrics } = usePlayer()
+  const { current, playing, loading, playPrayer, openLyrics, openComingSoon } = usePlayer()
+  const locked = !prayer.audio
   const isCurrent = current?.id === prayer.id
   const isPlaying = isCurrent && playing
   const category = categoryById(prayer.categoryId)
+
+  if (locked) {
+    return (
+      <li className="rounded-3xl border border-manto-100 bg-manto-50/60 p-4">
+        <button
+          type="button"
+          onClick={() => openComingSoon('musica')}
+          aria-label={`${prayer.title} — em breve`}
+          className="flex w-full items-center gap-3 text-left"
+        >
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-manto-200 text-manto-700">
+            <Lock className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="flex items-center gap-2 text-sm font-bold tabular-nums text-ouro-600">
+              <span>{pad(index + 1)}</span>
+              <span className="text-tinta-soft/70" aria-hidden="true">·</span>
+              <span className="uppercase tracking-[0.14em]">Em breve</span>
+            </span>
+            <span className="block font-serif text-[1.3rem] font-semibold leading-snug text-manto-900/70">{prayer.title}</span>
+            {showCategory && category && <span className="block text-sm text-tinta-soft">{category.title}</span>}
+          </span>
+        </button>
+      </li>
+    )
+  }
 
   return (
     <li

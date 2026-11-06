@@ -1,6 +1,7 @@
 import type { Prayer } from '../types'
 import { bebe } from './oracoes/bebe'
 import { bebeComAudio } from './oracoes/bebe-audio'
+import { bebeComAudio2 } from './oracoes/bebe-audio-2'
 import { casal } from './oracoes/casal'
 import { dia } from './oracoes/dia'
 import { familia } from './oracoes/familia'
@@ -8,8 +9,10 @@ import { gratidao } from './oracoes/gratidao'
 import { mae } from './oracoes/mae'
 import { maria } from './oracoes/maria'
 import { medo } from './oracoes/medo'
+import { medoComAudio } from './oracoes/medo-audio'
 import { nascimento } from './oracoes/nascimento'
 import { ultrassom } from './oracoes/ultrassom'
+import { ultrassomComAudio } from './oracoes/ultrassom-audio'
 
 /**
  * TODAS AS ORAÇÕES DO APP
@@ -21,13 +24,17 @@ import { ultrassom } from './oracoes/ultrassom'
  *   oracoes-bebe | quando-o-medo-aparecer | consultas-exames-ultrassons | da-manha-a-noite
  *   sob-o-manto | coracao-da-mae | oracoes-familia | oracoes-gratidao | preparacao-nascimento | oracoes-casal
  *
- * Só as 10 primeiras de "Orações pelo desenvolvimento e crescimento do seu bebê" têm áudio por enquanto.
+ * Têm áudio: 14 do bebê (bebe-audio*.ts), 13 dos medos (medo-audio.ts) e 7 de consultas/exames (ultrassom-audio.ts).
+ * As demais aparecem na lista, mas o play mostra o aviso "em breve".
  * Para liberar o áudio de uma oração: acrescente audio: "/audio/<id>.mp3" (ou use comAudio) e suba o MP3 em public/audio/.
  * Os textos abaixo são letras de exemplo para testar o app — substitua pelas suas.
  */
 export const prayers: Prayer[] = [
   /* ───────────── ORAÇÕES PELO DESENVOLVIMENTO E CRESCIMENTO DO SEU BEBÊ (10 com áudio) ───────────── */
   ...bebeComAudio,
+  ...bebeComAudio2,
+  ...medoComAudio,
+  ...ultrassomComAudio,
 
   {
     id: 'quando-eu-estiver-com-medo',
@@ -192,39 +199,6 @@ Que eu veja com os olhos da fé
 a vida que Tu criaste.
 Seja qual for a notícia,
 fica comigo, Senhor.
-`,
-  },
-  {
-    id: 'antes-da-consulta',
-    title: 'Antes da Consulta',
-    categoryId: 'consultas-exames-ultrassons',
-    duration: '3:20',
-    cover: '/images/musicas/antes-da-consulta.jpg',
-    tags: ['consulta', 'pré-natal', 'médico'],
-    lyrics: `
-[Verso]
-Vou à consulta, Senhor,
-levando perguntas e esperanças.
-Guia as palavras do médico,
-guia as minhas, guia a minha escuta.
-
-[Refrão]
-Que eu escute com calma,
-que eu entenda com paz.
-Sê Tu a luz neste encontro,
-sê Tu o cuidado em cada decisão.
-
-[Verso]
-Maria, Mãe atenta e serena,
-acompanha o meu pré-natal.
-Que tudo contribua para o bem
-da mãe e do bebê que carrego.
-
-[Refrão]
-Que eu escute com calma,
-que eu entenda com paz.
-Sê Tu a luz neste encontro,
-sê Tu o cuidado em cada decisão.
 `,
   },
   {

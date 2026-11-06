@@ -7,7 +7,7 @@ import { MantoMark } from './MantoMark'
 
 /** Pop-up "em breve": aparece ao tocar em algo que ainda não foi liberado. */
 export function ComingSoonModal() {
-  const { comingSoon, closeComingSoon } = usePlayer()
+  const { comingSoon, comingSoonKind, closeComingSoon } = usePlayer()
   const closeRef = useRef<HTMLButtonElement>(null)
   const released = categories.find((c) => c.liberada)
 
@@ -62,7 +62,9 @@ export function ComingSoonModal() {
           </h2>
           <div className="divider mx-auto mt-3 justify-center" aria-hidden="true">✦</div>
           <p id="soon-text" className="mt-3 text-[17px] leading-snug text-tinta-soft">
-            Essas músicas estão sendo adicionadas e em breve estarão no aplicativo.
+            {comingSoonKind === 'musica'
+              ? 'Esta música está sendo adicionada e em breve estará no aplicativo.'
+              : 'Essas músicas estão sendo adicionadas e em breve estarão no aplicativo.'}
           </p>
 
           <div className="mt-7 grid gap-3">

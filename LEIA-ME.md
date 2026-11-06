@@ -55,4 +55,4 @@ Favoritos e "Continue sua oração" ficam só no aparelho de cada pessoa (localS
 ## Liberar categorias e músicas (o que está "em breve")
 - **Categoria:** em `src/data/categories.ts`, acrescente `liberada: true` na categoria. Sem isso ela aparece com cadeado e o aviso "em breve".
 - **Música:** a oração só toca se tiver a linha `audio: '/audio/<nome>.mp3'` e o MP3 estiver em `public/audio/`. Sem isso, o play abre o aviso "estão sendo adicionadas".
-- As 10 primeiras músicas (categoria do bebê) estão em `src/data/oracoes/bebe-audio.ts`, com letra e áudio.
+- As músicas com áudio e letra estão em `src/data/oracoes/*-audio*.ts` (bebê, medos e consultas/exames).

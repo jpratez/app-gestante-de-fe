@@ -79,7 +79,7 @@ export function WelcomeNotice() {
             </li>
             <li className="flex gap-3">
               <CalendarHeart className="mt-0.5 h-5 w-5 shrink-0 text-ouro-600" aria-hidden="true" />
-              <span>Já tem oração para ouvir agora, na primeira categoria. Volte sempre para ver as novidades.</span>
+              <span>Já tem oração para ouvir agora. Volte sempre para ver as novidades.</span>
             </li>
             <li className="flex gap-3">
               <Gift className="mt-0.5 h-5 w-5 shrink-0 text-ouro-600" aria-hidden="true" />
